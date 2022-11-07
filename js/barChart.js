@@ -51,6 +51,12 @@ class barChart{
 
     // y-axis should contain the total number of games published that year. So, from the data it should be collected based on the years
     // let yMaxDomain = 
+        let totalGamesWithPlatform = d3.rollup(vgsales, g => g.length, d => d.Year, d => d.Platform);
+        console.log("totalGames:",totalGamesWithPlatform)
+        let rolled_data = d3.rollup(vgsales, g => g.length, d => d.Year)
+        console.log("rolled data:",rolled_data)
+        let maxData = d3.max(rolled_data, d => d.Year)
+        console.log("max data:",d3.max(rolled_data, d=>d.Year))
 
         let y = d3.scaleLinear()
             .domain([0, 60])
