@@ -1,0 +1,83 @@
+const margin = {top: 700, right: 30, bottom: 20, left: 100}
+const width = 1500 - margin.left - margin.right
+const height = 1200 - margin.top - margin.bottom;
+
+class barChart{
+
+    constructor(vgsales, platformGrouped){
+        this.vgsales = vgsales;
+        this.platformGrouped = platformGrouped;
+
+        // console.log(this.vgsales,this.platformGrouped,this.platformGrouped.keys())
+        // console.log(this.platformGrouped)
+        // let values = this.platformGrouped.values()
+        // console.log("values:",values[0])
+
+    //stacked data
+
+        let group = d3.groups(vgsales, d => d.Platform)
+        // console.log("keys:",group)
+        // console.log(group[0][1][0])
+        let keyData = group.map((d,i) => { 
+                        return {key:d[0], value: i};
+                    })
+        console.log(keyData[0].key)
+        let subGroups = keyData.map((d,i) => d.key)
+        console.log("subgroups:",subGroups)
+
+
+
+    // x axis
+        // let years = d3.map(vgsales, (d,i) => console.log(d.Year,i))
+        let years = d3.map(vgsales, (d,i) => parseInt(d.Year))
+        console.log(years)
+
+    // drawing bar chart
+        let barSvg = d3.select("#barChart-div")
+                .append("svg")
+                    .attr("width", width + margin.left + margin.right)
+                    .attr("height", height + margin.top + margin.bottom)
+                .append("g")
+                    .attr("transform",
+                        "translate(" + margin.left + "," + margin.top + ")");
+
+        let x = d3.scaleBand()
+            .domain(years)
+            .range([0, width])
+            .padding([0.2])
+        barSvg.append("g")
+            .attr("transform", "translate(0," + height + ")")
+            .call(d3.axisBottom(x).tickSizeOuter(0));
+
+    // y-axis should contain the total number of games published that year. So, from the data it should be collected based on the years
+    // let yMaxDomain = 
+
+        let y = d3.scaleLinear()
+            .domain([0, 60])
+            .range([ height, 0 ]);
+        barSvg.append("g")
+            .call(d3.axisLeft(y));
+
+        let stackedData = d3.stack()
+            .keys(subGroups)
+            (vgsales)
+
+        console.log(stackedData)
+
+        // barSvg.append("g")
+        //     .selectAll("g")
+        //     // Enter in the stack data = loop key per key = group per group
+        //     .data(stackedData)
+        //     .enter().append("g")
+        //     //   .attr("fill", function(d) { return color(d.key); })
+        //       .selectAll("rect")
+        //       // enter a second time = loop subgroup per subgroup to add all rectangles
+        //       .data(function(d) { return d; })
+        //       .enter().append("rect")
+        //         .attr("x", function(d) { return x(d.data.group); })
+        //         .attr("y", function(d) { return y(d[1]); })
+        //         .attr("height", function(d) { return y(d[0]) - y(d[1]); })
+        //         .attr("width",x.bandwidth())
+    }
+
+}
