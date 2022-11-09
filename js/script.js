@@ -1,8 +1,9 @@
 Promise.all([d3.csv('./data/vgsales.csv')]).then( data =>
+// Promise.all([d3.csv('./data/demo.csv')]).then( data =>
 {
   let vgsales = data[0];
   //let wordNoForceData = data[1];
-  //console.log("d", wordNoForceData);
+  // console.log("d", vgsales);
   // let groupedData = d3.groups(wordPositionsData, d => {
   //     return d.category;
   // })
@@ -11,7 +12,7 @@ Promise.all([d3.csv('./data/vgsales.csv')]).then( data =>
   // let table = new Table(wordPositionsData, 'loadOnce', colorScale);
   // table.drawTable();
   let platformGrouped = d3.group(vgsales, d => d.Platform)
-  // console.log(platformGrouped)
+  console.log(platformGrouped)
   let bar = new barChart(vgsales,platformGrouped);
   // console.log(vgsales)
 });

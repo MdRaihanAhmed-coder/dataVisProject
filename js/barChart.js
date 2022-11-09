@@ -25,8 +25,6 @@ class barChart{
         let subGroups = keyData.map((d,i) => d.key)
         console.log("subgroups:",subGroups)
 
-
-
     // x axis
         // let years = d3.map(vgsales, (d,i) => console.log(d.Year,i))
         let years = d3.map(vgsales, (d,i) => parseInt(d.Year))
@@ -41,9 +39,12 @@ class barChart{
                     .attr("transform",
                         "translate(" + margin.left + "," + margin.top + ")");
 
+
+        years.sort();
+        console.log("years: ",years);
         let x = d3.scaleBand()
             .domain(years)
-            .range([0, width])
+            .range([0, width+60])
             .padding([0.2])
         barSvg.append("g")
             .attr("transform", "translate(0," + height + ")")
@@ -54,36 +55,39 @@ class barChart{
         let totalGamesWithPlatform = d3.rollup(vgsales, g => g.length, d => d.Year, d => d.Platform);
         console.log("totalGames:",totalGamesWithPlatform)
         let rolled_data = d3.rollup(vgsales, g => g.length, d => d.Year)
-        console.log("rolled data:",rolled_data)
+        console.log("rolled data:",rolled_data) // From rolled data got the max - 664
         let maxData = d3.max(rolled_data, d => d.Year)
-        console.log("max data:",d3.max(rolled_data, d=>d.Year))
+        console.log("max data:",maxData)
 
         let y = d3.scaleLinear()
-            .domain([0, 60])
+            .domain([0, 664])
             .range([ height, 0 ]);
         barSvg.append("g")
             .call(d3.axisLeft(y));
 
         let stackedData = d3.stack()
-            .keys(subGroups)
+            // .keys(subGroups)
+            .keys(rolled_data)
             (vgsales)
 
-        console.log(stackedData)
+        console.log("stackedData:",stackedData)
 
-        // barSvg.append("g")
-        //     .selectAll("g")
-        //     // Enter in the stack data = loop key per key = group per group
-        //     .data(stackedData)
-        //     .enter().append("g")
-        //     //   .attr("fill", function(d) { return color(d.key); })
-        //       .selectAll("rect")
-        //       // enter a second time = loop subgroup per subgroup to add all rectangles
-        //       .data(function(d) { return d; })
-        //       .enter().append("rect")
-        //         .attr("x", function(d) { return x(d.data.group); })
-        //         .attr("y", function(d) { return y(d[1]); })
-        //         .attr("height", function(d) { return y(d[0]) - y(d[1]); })
-        //         .attr("width",x.bandwidth())
+        barSvg.append("g")
+            .selectAll("g")
+            // Enter in the stack data = loop key per key = group per group
+            .data(stackedData)
+            .enter().append("g")
+            //   .attr("fill", function(d) { return color(d.key); })
+              .selectAll("rect")
+              .data(function(d) { return d; })
+              .enter().append("rect")
+                .attr("x", function(d) { 
+                    console.log(d.data);
+                    return x(parseInt(d.data.Year)); 
+                })
+                .attr("y", function(d) { return y(d[1]); })
+                .attr("height", function(d) { return y(d[0]) - y(d[1]); })
+                .attr("width",x.bandwidth())
     }
 
 }
