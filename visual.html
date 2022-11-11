@@ -8,6 +8,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <script src="https://d3js.org/d3.v7.min.js"></script>
     <script src="js/StackedBarChart.js" defer></script>
+    <script src="js/VisController.js" defer></script>
     <script src="js/NavBar.js" defer></script>
     <script src="js/script.js" defer></script>
   </head>
@@ -83,6 +84,13 @@
 
       </div>
       <svg id="bar-chart">
+        <g class="brush-group"></g>
+        <g class="x-axis"></g>
+        <g class="y-axis"></g>
+      </svg>
+      <svg id="zoom-chart">
+        <g class="x-axis"></g>
+        <g class="y-axis"></g>
       </svg>
     </section>
   </body>
