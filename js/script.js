@@ -1,28 +1,17 @@
-Promise.all([d3.csv('./data/vgsales.csv')]).then( data =>
-// Promise.all([d3.csv('./data/demo.csv')]).then( data =>
-{
-  let vgsales = data[0];
-  //let wordNoForceData = data[1];
-  // console.log("d", vgsales);
-  // let groupedData = d3.groups(wordPositionsData, d => {
-  //     return d.category;
-  // })
-  // console.log("groupedData:",groupedData.keys())
-  // grouped it using array
-  // let table = new Table(wordPositionsData, 'loadOnce', colorScale);
-  // table.drawTable();
-  let platformGrouped = d3.group(vgsales, d => d.Platform)
-  console.log(platformGrouped)
-  let bar = new barChart(vgsales,platformGrouped);
-  // console.log(vgsales)
-});
-
-d3.selectAll(".arrow").on("click",  e => {
-  let arrowParent = e.target.parentElement.parentElement;
-  arrowParent.classList.toggle("showMenu");
-});
-
-d3.select(".bx-menu").on("click", e => {
-  let sidebar = d3.select(".sidebar");
-  sidebar.classed("close", sidebar.classed("close") ? false : true);
+d3.csv('./data/vgsales.csv').then(data => {
+  data = data.filter(d => !(isNaN(parseInt(d.Year)) || d.Year > 2018 || d.Platform == "Series" || d.Platform == "All"));
+  console.log(data);
+  let barChart = StackedBarChart(
+    d3.rollup(data, g => g.length, d => parseInt(d.Year), d => {
+      return (d.ESRB_Rating == "N/A" || d.ESRB_Rating == "RP") ? "Unrated" : d.ESRB_Rating;
+    }),
+    d3.select("#bar-chart"),
+    900,
+    300,
+    d3.scaleOrdinal()
+      .domain(["Unrated", "EC", "E", "E10", "T", "M", "AO"])
+      .range([0, 1, 2, 3, 4, 5, 6, 7]),
+    d3.scaleOrdinal().domain(["Unrated", "EC", "E", "E10", "T", "M", "AO"]).range(d3.schemeSet3)
+  );
+  barChart.draw();
 });
