@@ -27,11 +27,8 @@ class VisController {
     let rolledData = d3.rollup(this.data.raw, g => g.length, d => parseInt(d.Year), d => {
       return (d.ESRB_Rating == "N/A" || d.ESRB_Rating == "RP") ? "Unrated" : d.ESRB_Rating;
     })
-    let os = d3.scaleOrdinal()
-      .domain(["Unrated", "EC", "E", "E10", "T", "M", "AO"])
-      .range([0, 1, 2, 3, 4, 5, 6, 7]);
     let cs = d3.scaleOrdinal().domain(["Unrated", "EC", "E", "E10", "T", "M", "AO"]).range(d3.schemeSet3)
-    this.barChart.draw(rolledData, os, cs, false);
+    this.barChart.draw(rolledData, cs, false);
     this.legend.draw(cs);
   }
   #drawByPlatform() {
@@ -49,11 +46,8 @@ class VisController {
         ["Amig", "CD32", "ACPC", "APII", "CV", "C128", "C64", "Int", "Linux", "OSX", "PC", "MSD", "MSX", "ZXS"].includes(d.Platform) ?
           "PC" : "Other";
     })
-    let os = d3.scaleOrdinal()
-      .domain(["Other", "Atari", "Nintendo", "Sega", "Microsoft", "Sony", "PC"])
-      .range([0, 1, 2, 3, 4, 5, 6])
     let cs = d3.scaleOrdinal().domain(["Other", "Atari", "Nintendo", "Sega", "Microsoft", "Sony", "PC"]).range(d3.schemeSet3)
-    this.barChart.draw(rolledData, os, cs, false);
+    this.barChart.draw(rolledData, cs, false);
     this.legend.draw(cs);
   }
 }

@@ -24,7 +24,7 @@ class StackedBarChart {
     if (selection) {
       const [x0, x1] = selection;
       let filteredBars = this.svg.selectAll(".barGroup").filter(d => x0 < (this.xs(d[0]) + this.xs.bandwidth()) && this.xs(d[0]) < x1);
-      this.#child.draw(new Map(filteredBars.data()), this.os, this.cs, true);
+      this.#child.draw(new Map(filteredBars.data()), this.cs, true);
     }
   });
 
@@ -59,10 +59,9 @@ class StackedBarChart {
   }
 
   /*public methods*/
-  draw(data, orderScale, colorScale, proportional) {
+  draw(data, colorScale, proportional) {
     //If optional parameters are present, update chart members
     this.setSubrolledData(data);
-    this.setOrderScale(orderScale);
     this.setColorScale(colorScale);
     this.proportional = proportional ? true : false;
     //Ensure that the SVG's attributes are correctly set
@@ -85,7 +84,7 @@ class StackedBarChart {
           label: m[0],
           value: m[1],
           proportionalHeight: (m[1] / this.data.rolled.get(d[0].toString())) * (this.height - (2 * this.padding))
-        })).sort((a, b) => this.os(a.label) - this.os(b.label)))
+        })).sort((a, b) => this.cs.domain().indexOf(a.label) - this.cs.domain().indexOf(b.label)))
         .join("rect")
         .attr("y", (d, i) => {
           if (proportional) {
@@ -128,10 +127,6 @@ class StackedBarChart {
     if (data) {
       this.data.rolled = data;
     }
-  }
-
-  setOrderScale(os) {
-    this.os = os ? os : this.os;
   }
 
   setColorScale(cs) {
