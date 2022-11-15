@@ -23,7 +23,7 @@ class StackedBarChart {
   brush = d3.brushX().on("brush end", ({selection}, category) => {
     if (selection) {
       const [x0, x1] = selection;
-      let filteredBars = this.svg.selectAll(".barGroup").filter(d => x0 < this.xs(d[0] + 1) && this.xs(d[0]) < x1);
+      let filteredBars = this.svg.selectAll(".barGroup").filter(d => x0 < (this.xs(d[0]) + this.xs.bandwidth()) && this.xs(d[0]) < x1);
       this.#child.draw(new Map(filteredBars.data()), this.os, this.cs, true);
     }
   });
@@ -36,7 +36,6 @@ class StackedBarChart {
     this.svg = svg;
     this.width = width;
     this.height = height;
-
   }
 
   /*private methods*/
@@ -58,7 +57,6 @@ class StackedBarChart {
         .call(d3.axisLeft().scale(this.#ysDisplay));
     }
   }
-
 
   /*public methods*/
   draw(data, orderScale, colorScale, proportional) {
