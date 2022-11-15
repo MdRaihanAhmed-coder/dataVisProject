@@ -15,15 +15,16 @@ class VisController {
     this.zoomChart.setRolledData(this.data.rolled);
     this.barChart.setChild(zoomChart);
   }
-  draw(category) {
+  draw(category, filter) {
     if (category == "ESRB_Rating") {
-      this.#drawByRating();
+      this.#drawByRating(filter);
     } else if (category == "Platform") {
-      this.#drawByPlatform();
+      this.#drawByPlatform(filter);
     }
   }
 
-  #drawByRating() {
+  #drawByRating(filter) {
+    let data = filter ? this.data.raw.filter(filter) : this.data.raw;
     let rolledData = d3.rollup(this.data.raw, g => g.length, d => parseInt(d.Year), d => {
       return (d.ESRB_Rating == "N/A" || d.ESRB_Rating == "RP") ? "Unrated" : d.ESRB_Rating;
     })
@@ -31,7 +32,8 @@ class VisController {
     this.barChart.draw(rolledData, cs, false);
     this.legend.draw(cs);
   }
-  #drawByPlatform() {
+  #drawByPlatform(filter) {
+    let data = filter ? this.data.raw.filter(filter) : this.data.raw;
     let rolledData = d3.rollup(this.data.raw, g => g.length, d => parseInt(d.Year), d => {
       return ["2600", "5200", "7800", "AJ", "Lynx", "AST"].includes(d.Platform) ?
           "Atari" :
