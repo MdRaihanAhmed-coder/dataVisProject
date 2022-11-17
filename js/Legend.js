@@ -23,9 +23,13 @@ class Legend {
       .attr("width", this.width)
       .style("margin", this.margin);
     //Make a group for each legend entry
-    let symbolGroups = this.svg.selectAll(".symbolGroup").data(this.cs.domain()).join("g")
+    let symbolGroups = this.svg.selectAll(".symbolGroup").data(this.cs.domain().reverse()).join("g")
       .classed("symbolGroup", true)
-      .attr("transform", d => "translate(" + this.padding + ", " + (this.ys(d) - 10) + ")");
+      .attr("transform", (d, i) => {
+        let x = ((i % 2) == 0) ? this.padding : (this.padding * 2) + (this.width / 2);
+        let y = ((2 * this.height) / this.cs.domain().length) * Math.floor(i / 2);
+        return "translate(" + x + ", " + y + ")"
+      });
     //Draw every symbol
     symbolGroups.selectAll(".symbol").data(d => [d]).join("rect")
       .classed("symbol", true)

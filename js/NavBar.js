@@ -10,7 +10,7 @@ class NavBar {
 			console.log(e.target.checked);
 			// var isChecked = this.checked;
 			// console.log(isChecked);
-			
+
 
 		})
 
@@ -23,5 +23,12 @@ class NavBar {
 		  let sidebar = d3.select(".sidebar");
 		  sidebar.classed("close", sidebar.classed("close") ? false : true);
 		});
+
+		let radios = d3.selectAll(".category-radio");
+		d3.selectAll(".category-radio").on("click", e => {
+			radios.property("checked", false);
+			e.target.checked = true;
+			console.log(e);
+		})
 	}
 }

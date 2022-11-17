@@ -11,7 +11,7 @@ class StackedBarChart {
   #ysDisplay;
   #ysProportional;
 
-  margin = 30;
+  margin = 0;
   padding = 40;
   width;
   height;
