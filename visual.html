@@ -9,6 +9,7 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
     <link rel="icon" type="image/x-icon" href="favicon.ico">
     <script src="https://d3js.org/d3.v7.min.js"></script>
+    <script src="js/Categorizer.js" defer></script>
     <script src="js/Legend.js" defer></script>
     <script src="js/StackedBarChart.js" defer></script>
     <script src="js/VisController.js" defer></script>
@@ -31,44 +32,7 @@
             </a>
             <i class='bx bxs-chevron-down arrow' ></i>
           </div>
-          <ul class="sub-menu">
-            <li><a class="link_name" href="#">Platform</a></li>
-            <li><a href="#">Atari</a>
-            <label class="switch">
-              <input type="checkbox" checked="true"checked="true" class="navtoggle" name="Atari">
-              <span class="slider"></span>
-            </label></li>
-            <li><a href="#">Microsoft</a>
-            <label class="switch">
-              <input type="checkbox" checked="true"checked="true" class="navtoggle" name="Microsoft">
-              <span class="slider"></span>
-            </label></li>
-            <li><a href="#">Nintendo</a>
-            <label class="switch">
-              <input type="checkbox" checked="true"checked="true" class="navtoggle" name="Nintendo">
-              <span class="slider"></span>
-            </label></li>
-            <li><a href="#">Other</a>
-            <label class="switch">
-              <input type="checkbox"checked="true" class="navtoggle" name="Other">
-              <span class="slider"></span>
-            </label></li>
-            <li><a href="#">PC</a>
-            <label class="switch">
-              <input type="checkbox"checked="true" class="navtoggle" name="PC">
-              <span class="slider"></span>
-            </label></li>
-            <li><a href="#">Sega</a>
-            <label class="switch">
-              <input type="checkbox"checked="true" class="navtoggle" name="Sega">
-              <span class="slider"></span>
-            </label></li>
-            <li><a href="#">Sony</a>
-            <label class="switch">
-              <input type="checkbox"checked="true" class="navtoggle" name="Sony">
-              <span class="slider"></span>
-            </label></li>
-          </ul>
+          <ul id="platform-list" class="sub-menu"></ul>
         </li>
         <li>
           <div class="icon-link">
@@ -79,64 +43,7 @@
             </a>
             <i class='bx bxs-chevron-down arrow' ></i>
           </div>
-          <ul class="sub-menu">
-            <li><a class="link_name" href="#">Genre</a></li>
-            <li><a href="#">Action-Adventure</a>
-            <label class="switch">
-              <input type="checkbox"checked="true" class="navtoggle">
-              <span class="slider"></span>
-            </label></li>
-            <li><a href="#">Fighting</a>
-            <label class="switch">
-              <input type="checkbox"checked="true" class="navtoggle">
-              <span class="slider"></span>
-            </label></li>
-            <li><a href="#">Misc</a>
-            <label class="switch">
-              <input type="checkbox"checked="true" class="navtoggle">
-              <span class="slider"></span>
-            </label></li>
-            <li><a href="#">Platform</a>
-            <label class="switch">
-              <input type="checkbox"checked="true" class="navtoggle">
-              <span class="slider"></span>
-            </label></li>
-            <li><a href="#">Other</a>
-            <label class="switch">
-              <input type="checkbox"checked="true" class="navtoggle">
-              <span class="slider"></span>
-            </label></li>
-            <li><a href="#">Racing</a>
-            <label class="switch">
-              <input type="checkbox"checked="true" class="navtoggle">
-              <span class="slider"></span>
-            </label></li>
-            <li><a href="#">Role-Playing</a>
-            <label class="switch">
-              <input type="checkbox"checked="true" class="navtoggle">
-              <span class="slider"></span>
-            </label></li>
-            <li><a href="#">Shooter</a>
-            <label class="switch">
-              <input type="checkbox"checked="true" class="navtoggle">
-              <span class="slider"></span>
-            </label></li>
-            <li><a href="#">Simulation</a>
-            <label class="switch">
-              <input type="checkbox"checked="true" class="navtoggle">
-              <span class="slider"></span>
-            </label></li>
-            <li><a href="#">Sports</a>
-            <label class="switch">
-              <input type="checkbox"checked="true" class="navtoggle">
-              <span class="slider"></span>
-            </label></li>
-            <li><a href="#">Strategy</a>
-            <label class="switch">
-              <input type="checkbox"checked="true" class="navtoggle">
-              <span class="slider"></span>
-            </label></li>
-          </ul>
+          <ul id="genre-list" class="sub-menu"></ul>
         </li>
         <li>
           <div class="icon-link">
@@ -147,34 +54,7 @@
             </a>
             <i class='bx bxs-chevron-down arrow' ></i>
           </div>
-          <ul class="sub-menu">
-            <li><a class="link_name" href="#">ESRB</a></li>
-            <li><a href="#">E (Everyone)</a>
-            <label class="switch">
-              <input type="checkbox"checked="true" class="navtoggle">
-              <span class="slider"></span>
-            </label></li>
-            <li><a href="#">E10+ (Everyone 10+)</a>
-            <label class="switch">
-              <input type="checkbox"checked="true" class="navtoggle">
-              <span class="slider"></span>
-            </label></li>
-            <li><a href="#">M (Mature)</a>
-            <label class="switch">
-              <input type="checkbox"checked="true" class="navtoggle">
-              <span class="slider"></span>
-            </label></li>
-            <li><a href="#">Other</a>
-            <label class="switch">
-              <input type="checkbox"checked="true" class="navtoggle">
-              <span class="slider"></span>
-            </label></li>
-            <li><a href="#">T (Teen)</a>
-            <label class="switch">
-              <input type="checkbox"checked="true" class="navtoggle">
-              <span class="slider"></span>
-            </label></li>
-          </ul>
+          <ul id="esrb-list" class="sub-menu"></ul>
         </li>
       </ul>
     </div>

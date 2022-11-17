@@ -2,54 +2,42 @@ class VisController {
   data;
   legend;
   barChart;
+  categorizer;
 
-  constructor(data, legend, barChart, zoomChart) {
+  constructor(data, legend, barChart, zoomChart, categorizer) {
     this.data = {
       raw: data,
-      rolled: d3.rollup(data, g => g.length, d => d.Year)
+      rolled: d3.rollup(data, g => g.length, d => parseInt(d.Year))
     };
     this.legend = legend;
     this.barChart = barChart;
     this.zoomChart = zoomChart;
-    this.barChart.setRolledData(this.data.rolled);
-    this.zoomChart.setRolledData(this.data.rolled);
+    this.categorizer = categorizer;
     this.barChart.setChild(zoomChart);
   }
-  draw(category, filter) {
-    if (category == "ESRB_Rating") {
-      this.#drawByRating(filter);
-    } else if (category == "Platform") {
-      this.#drawByPlatform(filter);
-    }
-  }
-
-  #drawByRating(filter) {
-    let data = filter ? this.data.raw.filter(filter) : this.data.raw;
-    let rolledData = d3.rollup(this.data.raw, g => g.length, d => parseInt(d.Year), d => {
-      return (d.ESRB_Rating == "N/A" || d.ESRB_Rating == "RP") ? "Unrated" : d.ESRB_Rating;
-    })
-    let cs = d3.scaleOrdinal().domain(["Unrated", "EC", "E", "E10", "T", "M", "AO"]).range(d3.schemeSet3)
-    this.barChart.draw(rolledData, cs, false);
+  draw(category) {
+    let data = this.filter(this.data.raw);
+    let rolledData = d3.rollup(data, g => g.length, d => parseInt(d.Year));
+    let subrolledData = d3.rollup(data, g => g.length, d => parseInt(d.Year), d => this.categorizer.generalize(category, d[category]))
+    let cs = d3.scaleOrdinal().domain(Object.keys(this.categorizer[category])).range(d3.schemeSet3)
+    this.barChart.draw(subrolledData, rolledData, cs, false);
     this.legend.draw(cs);
   }
-  #drawByPlatform(filter) {
-    let data = filter ? this.data.raw.filter(filter) : this.data.raw;
-    let rolledData = d3.rollup(this.data.raw, g => g.length, d => parseInt(d.Year), d => {
-      return ["2600", "5200", "7800", "AJ", "Lynx", "AST"].includes(d.Platform) ?
-          "Atari" :
-        ["NES", "SNES", "N64", "GC", "Wii", "WW", "WiiU", "NS", "GB", "GBC", "GBA", "DS", "DSiW", "3DS"].includes(d.Platform) ?
-          "Nintendo" :
-        ["MS", "GEN", "DC", "SAT", "S32X"].includes(d.Platform) ?
-          "Sega" :
-        ["XB", "X360", "XOne"].includes(d.Platform) ?
-          "Microsoft" :
-        ["PS", "PS2", "PS3", "PS4", "PS5", "PSP", "PSV", "PSVR"].includes(d.Platform) ?
-          "Sony" :
-        ["Amig", "CD32", "ACPC", "APII", "CV", "C128", "C64", "Int", "Linux", "OSX", "PC", "MSD", "MSX", "ZXS"].includes(d.Platform) ?
-          "PC" : "Other";
+  filter(data) {
+    data = this.#filterByType(data, "Platform");
+    data = this.#filterByType(data, "Genre");
+    data = this.#filterByType(data, "ESRB_Rating");
+    return data
+  }
+  #filterByType(data, type) {
+    let inactive = Object.entries(this.categorizer[type]).filter(d => !d[1].active)
+    return data.filter(d => {
+      for (let [key, value] of inactive) {
+        if (value.subcategories.includes(d[type])) {
+          return false;
+        }
+      }
+      return true;
     })
-    let cs = d3.scaleOrdinal().domain(["Other", "Atari", "Nintendo", "Sega", "Microsoft", "Sony", "PC"]).range(d3.schemeSet3)
-    this.barChart.draw(rolledData, cs, false);
-    this.legend.draw(cs);
   }
 }

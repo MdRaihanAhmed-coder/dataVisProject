@@ -20,11 +20,11 @@ class StackedBarChart {
 
   #child;
 
-  brush = d3.brushX().on("brush end", ({selection}, category) => {
+  brush = d3.brushX().on("brush end", ({selection}) => {
     if (selection) {
       const [x0, x1] = selection;
       let filteredBars = this.svg.selectAll(".barGroup").filter(d => x0 < (this.xs(d[0]) + this.xs.bandwidth()) && this.xs(d[0]) < x1);
-      this.#child.draw(new Map(filteredBars.data()), this.cs, true);
+      this.#child.draw(new Map(filteredBars.data()), this.data.rolled, this.cs, true);
     }
   });
 
@@ -59,9 +59,10 @@ class StackedBarChart {
   }
 
   /*public methods*/
-  draw(data, colorScale, proportional) {
+  draw(subrolledData, rolledData, colorScale, proportional) {
     //If optional parameters are present, update chart members
-    this.setSubrolledData(data);
+    this.setSubrolledData(subrolledData);
+    this.setRolledData(rolledData);
     this.setColorScale(colorScale);
     this.proportional = proportional ? true : false;
     //Ensure that the SVG's attributes are correctly set
@@ -83,7 +84,9 @@ class StackedBarChart {
           year: d[0],
           label: m[0],
           value: m[1],
-          proportionalHeight: (m[1] / this.data.rolled.get(d[0].toString())) * (this.height - (2 * this.padding))
+          marketsales: this.data.rolled.get(d[0]),
+          marketshare: (m[1] / this.data.rolled.get(d[0])),
+          proportionalHeight: (m[1] / this.data.rolled.get(d[0])) * (this.height - (2 * this.padding))
         })).sort((a, b) => this.cs.domain().indexOf(a.label) - this.cs.domain().indexOf(b.label)))
         .join("rect")
         .attr("y", (d, i) => {
@@ -98,6 +101,12 @@ class StackedBarChart {
         .attr("width", this.xs.bandwidth)
         .attr("fill", d => this.cs(d.label))
         .on("click", e => console.log(e.target.__data__));
+    }
+    let selection;
+    if (selection = this.svg.select(".brush-group")?.node()?.__brush.selection) {
+      const [[x0, y0], [x1, y1]] = selection;
+      let filteredBars = this.svg.selectAll(".barGroup").filter(d => x0 < (this.xs(d[0]) + this.xs.bandwidth()) && this.xs(d[0]) < x1);
+      this.#child.draw(new Map(filteredBars.data()), this.data.rolled, this.cs, true);
     }
   }
 

@@ -34,16 +34,17 @@ class Legend {
     symbolGroups.selectAll(".symbol").data(d => [d]).join("rect")
       .classed("symbol", true)
       .attr("x", 0)
-      .attr("height", 20)
-      .attr("width", 20)
+      .attr("height", 15)
+      .attr("width", 15)
       .attr("fill", d => this.cs(d))
     //Draw every label
     symbolGroups.selectAll(".label").data(d => [d]).join("text")
       .classed("label", true)
       .attr("x", this.padding * 2)
-      .attr("y", 10)
+      .attr("y", 7.5)
       .attr("text-anchor", "start")
       .attr("dominant-baseline", "central")
+      .style("font", "15px Arial")
       .text(d => d);
   }
 
