@@ -9,7 +9,7 @@ class VisController {
       raw: data,
       rolled: d3.rollup(data, g => g.length, d => parseInt(d.Year))
     };
-    this.legend = legend;
+    this.legend = legend; 
     this.barChart = barChart;
     this.zoomChart = zoomChart;
     this.categorizer = categorizer;

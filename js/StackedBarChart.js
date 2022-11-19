@@ -55,7 +55,7 @@ class StackedBarChart {
       this.svg.select(".y-axis")
         .attr("transform", "translate(" + this.padding + ", " + this.padding + ")")
         .call(d3.axisLeft().scale(this.#ysDisplay));
-    }
+    } 
   }
 
   /*public methods*/
@@ -76,6 +76,7 @@ class StackedBarChart {
     let barGroups = this.svg.selectAll(".barGroup").data(this.data.subrolled).join("g")
       .classed("barGroup", true)
       .attr("transform", (d, i) => "translate(" + this.xs(d[0]) + ", 0)");
+    // console.log(barGroups.data())
 
     { //Draw rectangles within each group
       let barHeight = 0;
@@ -100,7 +101,18 @@ class StackedBarChart {
         .attr("height", d => proportional ? d.proportionalHeight : this.ys(d.value))
         .attr("width", this.xs.bandwidth)
         .attr("fill", d => this.cs(d.label))
-        .on("click", e => console.log(e.target.__data__));
+        .on("click", e => {
+          //waffle chart will be drawn here
+          console.log("data:",e.target.__data__)
+          // const waffleWidth = 1024
+          // const waffleHeight = 600
+          // const svg = d3.create("svg")
+          //   .style("cursor", "default")
+          //   .attr("viewBox", [0, 0, waffleWidth, waffleHeight]);
+
+          // new waffleChart();
+
+        });
     }
     let selection;
     if (selection = this.svg.select(".brush-group")?.node()?.__brush.selection) {
