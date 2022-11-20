@@ -8,11 +8,8 @@ class waffleChart{
         this.waffleSize = 600
         let padding = ({x: 10, y: 40})
         let whole = true;
-        // let cs = d3.scaleOrdinal(d3.schemeTableau10)
-        //         .domain(sequence(data.length))
         let sequence = (length) => Array.apply(null, {length: length}).map((d, i) => i);
         this.color = d3.scaleOrdinal().domain(Object.keys(this.categorizer["Platform"])).range(d3.schemeSet3)
-        // let this.color = this.vc.cs
         let scale = d3.scaleBand()
             .domain(sequence(10))
             .range([0, this.waffleSize])
@@ -21,10 +18,9 @@ class waffleChart{
         this.waffles = []
         let obj = data.entries()
         let keys = Array.from(data.keys())
-        console.log("keys:",keys[0])
-        console.log(d3.max(data.values()))
+        // console.log("keys:",keys[0])
+        // console.log(d3.max(data.values()))
         let maxValue = d3.max(data.values())
-        // const max = data.keys().length; 
         let total = vc.data.rolled.get(1994);
         let index = 0, waffle = [];
         let ratio=0;
@@ -49,38 +45,25 @@ class waffleChart{
             .style("cursor", "default")
             .attr("width",width)
             .attr("height",height)
-            // .attr("viewBox", [0, 0, width, height]);
         
         const g = this.waffleSvg.selectAll(".waffle")  
             .data(this.waffles)
             .join("g")
             .attr("class", "waffle");
         const cellSize = scale.bandwidth();
-        // const cellSize = d3.scaleBand();
         const half = cellSize / 2;
-        // const cells = g.append("g")
         const cells = g
             .selectAll("whole")
             .data(d => {
-                // console.log("undefined:",d)
                 return d
             })
             .join("rect")
-            // .attr("fill", )
             .attr("fill", d => this.color(d.key));
         
-        // cells.attr("x", d => scale(d.x))
         cells.attr("x", (d,i) => scale(d.x))
             .attr("y", d =>  scale(d.y))
-        // cells.attr("x",10)
-            // .attr("y", d =>  100)
             .attr("rx", 3).attr("ry", 3)
             .attr("width", cellSize).attr("height", cellSize)
-            // .attr("width", cellSize).attr("height", cellSize)
-        // cells.append("title").text(d => {
-        //     const cd = chartData[d.index];
-        //     return `${cd.territory}\n${toCurrency(cd.profit)} (${cd.ratio.toFixed(1)}%)`;
-        // cells.attr("y", d => scale(d.y*100));
         this.drawLegend(keys,cells);
     }
     drawLegend(keys,cells){
@@ -101,7 +84,6 @@ class waffleChart{
         legend.append("text")
             .attr("dx", 40)
             .attr("alignment-baseline", "hanging")
-            // .text((d, i) => `${d} (${chartData[i].ratio.toFixed(1)}%)`);
             .text((d) => d)
 
         let that = this;
@@ -111,8 +93,7 @@ class waffleChart{
             cells.transition().duration(500)
               .attr("fill", d => {
                 // console.log(d,d.index,i)
-                return d.index === (i+1) ? that.color(d.key) : "#ccc"
-                // return that.color("Microsoft")
+                return d.index === (i+1) ? that.color(d.key) : "#ccc";
               });  
         }
         function restore() {
