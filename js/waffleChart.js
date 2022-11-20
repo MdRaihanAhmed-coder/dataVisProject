@@ -25,7 +25,7 @@ class waffleChart{
         console.log(d3.max(data.values()))
         let maxValue = d3.max(data.values())
         // const max = data.keys().length; 
-        let total = vc.data.rolled.get(2012);
+        let total = vc.data.rolled.get(1994);
         let index = 0, waffle = [];
         let ratio=0;
         
@@ -81,9 +81,9 @@ class waffleChart{
         //     const cd = chartData[d.index];
         //     return `${cd.territory}\n${toCurrency(cd.profit)} (${cd.ratio.toFixed(1)}%)`;
         // cells.attr("y", d => scale(d.y*100));
-        this.drawLegend(keys);
+        this.drawLegend(keys,cells);
     }
-    drawLegend(keys){
+    drawLegend(keys,cells){
         console.log(keys)
         // let legendG = this.waffleSvg.append('g').attr('class','legenG')
         const legend = this.waffleSvg.selectAll(".legend")
@@ -91,8 +91,7 @@ class waffleChart{
             .join("g")
             .attr("opacity", 1)
             .attr("transform", (d, i) => `translate(${this.waffleSize + 20},${i * 40})`)
-            // .on("mouseover", highlight)
-            // .on("mouseout", restore);
+            .on("mouseover", highlight)
         
         legend.append("rect")
             .attr("rx", 3).attr("ry", 3)
@@ -103,5 +102,17 @@ class waffleChart{
             .attr("alignment-baseline", "hanging")
             // .text((d, i) => `${d} (${chartData[i].ratio.toFixed(1)}%)`);
             .text((d) => d)
+
+        let that = this;
+        function highlight(e, d, restore) {
+            const i = legend.nodes().indexOf(e.path[1]);
+            console.log(e,legend.nodes(),legend.nodes().indexOf(e.path[1]))
+            cells.transition().duration(500)
+              .attr("fill", d => {
+                // console.log(d,d.index,i)
+                return d.index === (i+1) ? that.color(d.key) : "#ccc"
+                // return that.color("Microsoft")
+              });  
+        }
     }
 }
