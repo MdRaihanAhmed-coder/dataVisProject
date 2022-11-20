@@ -92,6 +92,7 @@ class waffleChart{
             .attr("opacity", 1)
             .attr("transform", (d, i) => `translate(${this.waffleSize + 20},${i * 40})`)
             .on("mouseover", highlight)
+            .on("mouseout", restore);
         
         legend.append("rect")
             .attr("rx", 3).attr("ry", 3)
@@ -106,13 +107,16 @@ class waffleChart{
         let that = this;
         function highlight(e, d, restore) {
             const i = legend.nodes().indexOf(e.path[1]);
-            console.log(e,legend.nodes(),legend.nodes().indexOf(e.path[1]))
+            // console.log(e,legend.nodes(),legend.nodes().indexOf(e.path[1]))
             cells.transition().duration(500)
               .attr("fill", d => {
                 // console.log(d,d.index,i)
                 return d.index === (i+1) ? that.color(d.key) : "#ccc"
                 // return that.color("Microsoft")
               });  
+        }
+        function restore() {
+            cells.transition().duration(500).attr("fill", d => that.color(d.key))
         }
     }
 }
