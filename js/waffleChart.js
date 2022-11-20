@@ -4,8 +4,8 @@ class waffleChart{
         this.vc = vc
         this.categorizer = vc.categorizer
         let width=900
-        let height=300
-        let waffleSize = 600
+        let height=650
+        this.waffleSize = 600
         let padding = ({x: 10, y: 40})
         let whole = true;
         // let cs = d3.scaleOrdinal(d3.schemeTableau10)
@@ -15,20 +15,18 @@ class waffleChart{
         // let this.color = this.vc.cs
         let scale = d3.scaleBand()
             .domain(sequence(10))
-            .range([0, waffleSize])
+            .range([0, this.waffleSize])
             .padding(0.1)
 
         this.waffles = []
         let obj = data.entries()
-        console.log(typeof(obj))
         let keys = Array.from(data.keys())
         console.log("keys:",keys[0])
         console.log(d3.max(data.values()))
         let maxValue = d3.max(data.values())
         // const max = data.keys().length; 
-        let total = vc.data.rolled.get(2010);
-        console.log(total, Math.round(41.9))
-        let index = 0, curr = 1,accu = Math.round(data.get(keys[0])/total*100), waffle = [];
+        let total = vc.data.rolled.get(2012);
+        let index = 0, waffle = [];
         let ratio=0;
         
         for (let y = 9; y >= 0; y--){
@@ -49,6 +47,9 @@ class waffleChart{
         console.log("waffles:",this.waffles)
         this.waffleSvg = d3.select("#waffleChart")
             .style("cursor", "default")
+            .attr("width",width)
+            .attr("height",height)
+            // .attr("viewBox", [0, 0, width, height]);
         
         const g = this.waffleSvg.selectAll(".waffle")  
             .data(this.waffles)
@@ -80,9 +81,27 @@ class waffleChart{
         //     const cd = chartData[d.index];
         //     return `${cd.territory}\n${toCurrency(cd.profit)} (${cd.ratio.toFixed(1)}%)`;
         // cells.attr("y", d => scale(d.y*100));
-        this.drawLegend();
+        this.drawLegend(keys);
     }
-    drawLegend(){
-
+    drawLegend(keys){
+        console.log(keys)
+        // let legendG = this.waffleSvg.append('g').attr('class','legenG')
+        const legend = this.waffleSvg.selectAll(".legend")
+            .data(keys)
+            .join("g")
+            .attr("opacity", 1)
+            .attr("transform", (d, i) => `translate(${this.waffleSize + 20},${i * 40})`)
+            // .on("mouseover", highlight)
+            // .on("mouseout", restore);
+        
+        legend.append("rect")
+            .attr("rx", 3).attr("ry", 3)
+            .attr("width", 30).attr("height", 20)
+            .attr("fill", (d, i) => this.color(d));  
+        legend.append("text")
+            .attr("dx", 40)
+            .attr("alignment-baseline", "hanging")
+            // .text((d, i) => `${d} (${chartData[i].ratio.toFixed(1)}%)`);
+            .text((d) => d)
     }
 }

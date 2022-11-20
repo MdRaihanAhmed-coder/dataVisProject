@@ -22,7 +22,7 @@ d3.csv('./data/vgsales.csv').then(data => {
   let subrolledData = d3.rollup(vc.data.raw, g => g.length, d => parseInt(d.Year), d => vc.categorizer.generalize("Platform", d["Platform"]))
   // console.log(vc.data.subrolled.get(1994))
   // console.log("sub:",subrolledData)
-  new waffleChart(vc,subrolledData.get(2010));
+  new waffleChart(vc,subrolledData.get(2012));
 
 
 
