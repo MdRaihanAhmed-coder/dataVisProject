@@ -27,34 +27,39 @@ class waffleChart{
         let total = vc.data.rolled.get(1994);
         let ratio;
         let index = 0, curr = 1,accu = Math.round(data.get(keys[0])/total*100), waffle = [];
-        let key;
+        let r=0;
         // for (key of keys){
         // for(key of keys){
-            for (let y = 9; y >= 0; y--)
+        for (let y = 9; y >= 0; y--){
             for (let x = 0; x < 10; x ++) {
-                let firstkey=keys[0]
-                if (curr > accu) {
+                // if (curr > accu) {
                     // let r = Math.round(chartData[++index].ratio);
                     // let r = Math.round(d[1]/total*100);
-                    let r;
-                    // while(r === 0 && index < max) r = Math.round(chartData[++index].ratio);
-                    for(key of keys){
-                        ratio = Math.round(data.get(key)/total*100);
-                        // firstkey = 
-                        // console.log("key:",key)
-                        if(ratio !== 0){
-                            // firstkey=key;
-                            r = Math.round(ratio);
-                            // break;
-                        }
+                    if(r < 1){
+                        r=Math.round(data.get(keys[index])/total*100)
+                        console.log("r:",r,"keys:",data.get(keys[index]), "index:",index)
+                        index+=1;
                     }
-                    accu += r;
-                }
-                console.log("firstKey:",firstkey);
-                waffle.push({firstkey, x, y, index});
+                    r-=1;
+                    // while(r === 0 && index < max) r = Math.round(chartData[++index].ratio);
+                    // for(key of keys){
+                    //     ratio = Math.round(data.get(key)/total*100);
+                    //     // firstkey = 
+                    //     // console.log("key:",key)
+                    //     if(ratio !== 0){
+                    //         // firstkey=key;
+                    //         r = Math.round(ratio);
+                    //         // break;
+                    //     }
+                    // }
+                    // accu += r;
+                let key = keys[index-1]
+                waffle.push({key, x, y, index});
                 curr++;
-            } 
-            console.log(waffle)
+            }
+            // console.log("firstKey:",firstkey);
+        }
+        console.log("waffle:",waffle)
         waffles.push(waffle);
         console.log("waffles:",waffles)
         // }
@@ -100,7 +105,7 @@ class waffleChart{
             })
             .join("rect")
             // .attr("fill", )
-            .attr("fill", d => color(d.firstkey));
+            .attr("fill", d => color(d.key));
         
         // cells.attr("x", d => scale(d.x))
         cells.attr("x", (d,i) => scale(d.x))
