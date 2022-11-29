@@ -13,8 +13,6 @@ class WaffleChart {
   draw(subrolledData, rolledData, year, cs) {
     subrolledData = subrolledData.get(year);
     rolledData = rolledData;
-    let width=900
-    let height=650
     let padding = ({x: 10, y: 40})
     let whole = true;
     let sequence = (length) => Array.apply(null, {length: length}).map((d, i) => i);
@@ -47,8 +45,8 @@ class WaffleChart {
     this.waffles.push(waffle);
     this.svg
       .style("cursor", "default")
-      .attr("width", width)
-      .attr("height", height)
+      .attr("width", this.width)
+      .attr("height", this.height)
     const g = this.svg.selectAll(".waffle")
       .data(this.waffles)
       .join("g")
@@ -72,7 +70,7 @@ class WaffleChart {
     const legend = this.svg.select(".legend");
     let symbolGroups = legend.selectAll(".symbolGroup");
 
-    let highlight = (e, d) => {
+    let highlight = (e) => {
       const i = symbolGroups.nodes().indexOf(e.path[1]);
       cells.transition().duration(500)
         .attr("fill", d => {
@@ -82,7 +80,7 @@ class WaffleChart {
     let restore = () => {
       cells.transition().duration(500).attr("fill", d => cs(d.key))
     }
-    
+
     symbolGroups = symbolGroups
       .data(keys)
       .join("g")

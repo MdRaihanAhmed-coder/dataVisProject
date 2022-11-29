@@ -20,6 +20,8 @@ class StackedBarChart {
 
   #child;
 
+  #handleBarClick;
+
   brush = d3.brushX().on("brush end", ({selection}) => {
     if (selection) {
       const [x0, x1] = selection;
@@ -28,7 +30,7 @@ class StackedBarChart {
     }
   });
 
-  constructor(svg, width, height) {
+  constructor(svg, width, height, handleBarClick) {
     this.data = {
       subrolled: null,
       rolled: null
@@ -36,6 +38,7 @@ class StackedBarChart {
     this.svg = svg;
     this.width = width;
     this.height = height;
+    this.handleBarClick = handleBarClick;
   }
 
   /*private methods*/
@@ -55,7 +58,7 @@ class StackedBarChart {
       this.svg.select(".y-axis")
         .attr("transform", "translate(" + this.padding + ", " + this.padding + ")")
         .call(d3.axisLeft().scale(this.#ysDisplay));
-    } 
+    }
   }
 
   /*public methods*/
@@ -75,7 +78,8 @@ class StackedBarChart {
     //Create one group per year
     let barGroups = this.svg.selectAll(".barGroup").data(this.data.subrolled).join("g")
       .classed("barGroup", true)
-      .attr("transform", (d, i) => "translate(" + this.xs(d[0]) + ", 0)");
+      .attr("transform", (d, i) => "translate(" + this.xs(d[0]) + ", 0)")
+      .on("click", this.handleBarClick);
     // console.log(barGroups.data())
 
     { //Draw rectangles within each group
@@ -101,18 +105,7 @@ class StackedBarChart {
         .attr("height", d => proportional ? d.proportionalHeight : this.ys(d.value))
         .attr("width", this.xs.bandwidth)
         .attr("fill", d => this.cs(d.label))
-        .on("click", e => {
-          //waffle chart will be drawn here
-          console.log("data:",e.target.__data__)
-          // const waffleWidth = 1024
-          // const waffleHeight = 600
-          // const svg = d3.create("svg")
-          //   .style("cursor", "default")
-          //   .attr("viewBox", [0, 0, waffleWidth, waffleHeight]);
 
-          // new waffleChart();
-
-        });
     }
     let selection;
     if (selection = this.svg.select(".brush-group")?.node()?.__brush.selection) {
