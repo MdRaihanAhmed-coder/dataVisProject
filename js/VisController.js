@@ -2,16 +2,19 @@ class VisController {
   data;
   legend;
   barChart;
+  zoomChart;
+  waffleChart;
   categorizer;
 
-  constructor(data, legend, barChart, zoomChart, categorizer) {
+  constructor(data, legend, barChart, zoomChart, waffleChart, categorizer) {
     this.data = {
       raw: data,
       rolled: d3.rollup(data, g => g.length, d => parseInt(d.Year))
     };
-    this.legend = legend; 
+    this.legend = legend;
     this.barChart = barChart;
     this.zoomChart = zoomChart;
+    this.waffleChart = waffleChart;
     this.categorizer = categorizer;
     this.barChart.setChild(zoomChart);
   }
@@ -21,6 +24,8 @@ class VisController {
     let subrolledData = d3.rollup(data, g => g.length, d => parseInt(d.Year), d => this.categorizer.generalize(category, d[category]))
     let cs = d3.scaleOrdinal().domain(Object.keys(this.categorizer[category])).range(d3.schemeSet3)
     this.barChart.draw(subrolledData, rolledData, cs, false);
+    this.waffleChart.draw(subrolledData, rolledData, 1994, cs);
+
     this.legend.draw(cs);
   }
   filter(data) {

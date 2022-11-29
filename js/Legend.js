@@ -1,6 +1,5 @@
 class Legend {
   svg;
-  #os;
   #cs;
   #ys;
   width;
@@ -46,10 +45,6 @@ class Legend {
       .attr("dominant-baseline", "central")
       .style("font", "15px Arial")
       .text(d => d);
-  }
-
-  setOrderScale(os) {
-    this.os = os ? os : this.os;
   }
 
   setColorScale(cs) {
