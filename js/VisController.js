@@ -24,8 +24,7 @@ class VisController {
     let subrolledData = d3.rollup(data, g => g.length, d => parseInt(d.Year), d => this.categorizer.generalize(category, d[category]))
     let cs = d3.scaleOrdinal().domain(Object.keys(this.categorizer[category])).range(d3.schemeSet3)
     this.barChart.draw(subrolledData, rolledData, cs, false);
-    this.waffleChart.draw(subrolledData, rolledData, 1994, cs);
-
+    this.waffleChart.draw(subrolledData, rolledData, 2006, cs);
     this.legend.draw(cs);
   }
   filter(data) {
