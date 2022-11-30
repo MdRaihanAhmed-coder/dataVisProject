@@ -16,7 +16,7 @@ class Categorizer {
       },
       "Nintendo": {
         active: true,
-        subcategories: ["NES", "SNES", "N64", "GC", "Wii", "WW", "WiiU", "NS", "GB", "GBC", "GBA", "DS", "DSiW", "3DS", "iQue", "VB", "VC"]
+        subcategories: ["NES", "SNES", "N64", "GC", "Wii", "WW", "WiiU", "NS", "GB", "GBC", "GBA", "DS", "DSiW", "DSi", "3DS", "iQue", "VB", "VC"]
       },
       "Sega": {
         active: true,
@@ -32,7 +32,7 @@ class Categorizer {
       },
       "PC": {
         active: true,
-        subcategories: ["Amig", "CD32", "ACPC", "APII", "CV", "C128", "C64", "Int", "Linux", "OSX", "PC", "MSD", "MSX", "ZXS"]
+        subcategories: ["Amig", "CD32", "ACPC", "ApII", "CV", "C128", "C64", "Int", "Linux", "OSX", "PC", "MSD", "MSX", "ZXS"]
       },
       "Mobile": {
         active: true,
@@ -66,7 +66,7 @@ class Categorizer {
       }
     };
     this.Genre = {
-      "Other": {
+      "Misc": {
         active: true,
         subcategories: ["N/A", "Visual Novel", "Board Game", "Education", "Sandbox", "Music", "Party", "Misc"]
       },

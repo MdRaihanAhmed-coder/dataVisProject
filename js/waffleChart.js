@@ -10,7 +10,7 @@ class WaffleChart {
     this.height = height;
     this.waffleSize = waffleSize;
   }
-  draw(subrolledData, rolledData, year, cs) {
+  draw(subrolledData, rolledData, year, stratum, cs) {
     subrolledData = subrolledData.get(year);
     rolledData = rolledData;
     let padding = ({x: 10, y: 40})
@@ -21,15 +21,14 @@ class WaffleChart {
       .range([0, this.waffleSize])
       .padding(0.1);
 
-    this.waffles = []
+    this.waffles = [];
     let obj = subrolledData.entries()
-    let keys = Array.from(subrolledData.keys())
+    let keys = Array.from(d3.intersection(cs.domain(), subrolledData.keys()));
     let maxValue = d3.max(subrolledData.values())
     let total = rolledData.get(year);
     let index = 0;
     let waffle = [];
     let ratio = 0;
-
     for (let y = 9; y >= 0; y--) {
       for (let x = 0; x < 10; x++) {
         if (ratio < 1) {
@@ -38,6 +37,7 @@ class WaffleChart {
           index += 1;
         }
         let key = keys[index - 1];
+        key = key ? key : keys[index - 2];
         waffle.push({key, x, y, index});
         ratio -= 1;
       }
@@ -45,12 +45,21 @@ class WaffleChart {
     this.waffles.push(waffle);
     this.svg
       .style("cursor", "default")
+      .style("background-color", "white")
+      .style("outline", "thin solid black")
       .attr("width", this.width)
       .attr("height", this.height)
+    this.svg.select(".axis-label")
+      .text(`${year} Breakdown`)
+      .attr("text-anchor", "middle")
+      .attr("dominant-baseline", "central")
+      .attr("x", this.waffleSize / 2)
+      .attr("y", 25);
     const g = this.svg.selectAll(".waffle")
       .data(this.waffles)
       .join("g")
-      .attr("class", "waffle");
+      .attr("class", "waffle")
+      .attr("transform", `translate(0, 50)`);
     const cellSize = scale.bandwidth();
     const half = cellSize / 2;
     const cells = g
@@ -67,11 +76,12 @@ class WaffleChart {
   }
 
   drawLegend(keys, cells, cs) {
+    keys.reverse();
     const legend = this.svg.select(".legend");
     let symbolGroups = legend.selectAll(".symbolGroup");
 
     let highlight = (e) => {
-      const i = symbolGroups.nodes().indexOf(e.path[1]);
+      const i = symbolGroups.nodes().reverse().indexOf(e.path[1]);
       cells.transition().duration(500)
         .attr("fill", d => {
           return d.index === (i + 1) ? cs(d.key) : "#ccc";
@@ -85,7 +95,7 @@ class WaffleChart {
       .data(keys)
       .join("g")
       .attr("opacity", 1)
-      .attr("transform", (d, i) => `translate(${this.waffleSize + 20}, ${i * 40})`)
+      .attr("transform", (d, i) => `translate(${this.waffleSize + 20}, ${20 + i * 28})`)
       .classed("symbolGroup", true)
       .on("mouseover", highlight)
       .on("mouseout", restore);

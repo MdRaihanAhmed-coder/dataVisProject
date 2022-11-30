@@ -22,12 +22,20 @@ class StackedBarChart {
 
   #handleBarClick;
 
-  brush = d3.brushX().on("brush end", ({selection}) => {
+  activeYear;
+
+  brush = d3.brushX()
+    .on("brush end", ({selection}) => {
     if (selection) {
       const [x0, x1] = selection;
       let filteredBars = this.svg.selectAll(".barGroup").filter(d => x0 < (this.xs(d[0]) + this.xs.bandwidth()) && this.xs(d[0]) < x1);
-      this.#child.draw(new Map(filteredBars.data()), this.data.rolled, this.cs, true);
+      this.#child.draw(new Map(filteredBars.data()), this.data.rolled, this.activeYear, this.cs, true);
     }
+  }).on("start", ({selection}) => {
+    if (selection[0] == selection[1]) {
+      this.#child.draw(new Map(), this.data.rolled, this.activeYear, this.cs, true);
+    }
+
   });
 
   constructor(svg, width, height, handleBarClick) {
@@ -39,6 +47,7 @@ class StackedBarChart {
     this.width = width;
     this.height = height;
     this.handleBarClick = handleBarClick;
+    this.activeYear = 2009;
   }
 
   /*private methods*/
@@ -62,8 +71,9 @@ class StackedBarChart {
   }
 
   /*public methods*/
-  draw(subrolledData, rolledData, colorScale, proportional) {
+  draw(subrolledData, rolledData, activeYear, colorScale, proportional) {
     //If optional parameters are present, update chart members
+    this.activeYear = activeYear;
     this.setSubrolledData(subrolledData);
     this.setRolledData(rolledData);
     this.setColorScale(colorScale);
@@ -78,9 +88,9 @@ class StackedBarChart {
     //Create one group per year
     let barGroups = this.svg.selectAll(".barGroup").data(this.data.subrolled).join("g")
       .classed("barGroup", true)
+      .classed("active", d => d[0] == activeYear)
       .attr("transform", (d, i) => "translate(" + this.xs(d[0]) + ", 0)")
       .on("click", this.handleBarClick);
-    // console.log(barGroups.data())
 
     { //Draw rectangles within each group
       let barHeight = 0;
@@ -111,7 +121,9 @@ class StackedBarChart {
     if (selection = this.svg.select(".brush-group")?.node()?.__brush.selection) {
       const [[x0, y0], [x1, y1]] = selection;
       let filteredBars = this.svg.selectAll(".barGroup").filter(d => x0 < (this.xs(d[0]) + this.xs.bandwidth()) && this.xs(d[0]) < x1);
-      this.#child.draw(new Map(filteredBars.data()), this.data.rolled, this.cs, true);
+      this.#child.draw(new Map(filteredBars.data()), this.data.rolled, this.activeYear, this.cs, true);
+    } else if (this.#child) {
+      this.#child.draw(new Map(), this.data.rolled, this.activeYear, this.cs, true);
     }
   }
 
@@ -149,7 +161,7 @@ class StackedBarChart {
 
   setChild(childBarChart) {
     this.#child = childBarChart;
-    this.brush.extent([[this.padding, 0], [this.width - this.padding, this.height - this.padding]])
+    this.brush.extent([[this.padding, this.padding - 5], [this.width - this.padding, this.height - this.padding]])
     this.svg.select(".brush-group").call(this.brush);
   }
 

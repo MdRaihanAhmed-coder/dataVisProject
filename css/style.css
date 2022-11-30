@@ -46,7 +46,6 @@
 }
 .sidebar .nav-links{
   height: 100%;
-  padding: 30px 0 150px 0;
   overflow: auto;
 }
 .sidebar.close .nav-links{
@@ -243,6 +242,12 @@ input:checked + .slider:before {
 
 .barGroup {
   cursor: pointer;
+}
+.barGroup.active {
+  outline: thin solid black;
+}
+.barGroup:hover {
+  outline: thin solid red;
 }
 
 .category-radio {

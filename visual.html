@@ -26,17 +26,6 @@
       <ul class="nav-links">
         <li>
           <div class="icon-link">
-            <input type="radio" id="Platform" class="category-radio">
-            <a href="#">
-              <i class='bx bx-joystick' ></i>
-              <span class="link_name">Platform</span>
-            </a>
-            <i class='bx bxs-chevron-down arrow' ></i>
-          </div>
-          <ul id="platform-list" class="sub-menu"></ul>
-        </li>
-        <li>
-          <div class="icon-link">
             <input type="radio" id="Genre" class="category-radio">
             <a href="#">
               <i class='bx bx-game' ></i>
@@ -46,6 +35,18 @@
           </div>
           <ul id="genre-list" class="sub-menu"></ul>
         </li>
+        <li>
+          <div class="icon-link">
+            <input type="radio" id="Platform" class="category-radio">
+            <a href="#">
+              <i class='bx bx-joystick' ></i>
+              <span class="link_name">Platform</span>
+            </a>
+            <i class='bx bxs-chevron-down arrow' ></i>
+          </div>
+          <ul id="platform-list" class="sub-menu"></ul>
+        </li>
+
         <li>
           <div class="icon-link">
             <input type="radio" id="ESRB" class="category-radio">
@@ -63,19 +64,22 @@
       <div class="home-content">
         <i class='bx bx-menu' ></i>
       </div>
-      <svg id="bar-chart">
-        <g class="brush-group"></g>
-        <g class="x-axis"></g>
-        <g class="y-axis"></g>
-      </svg>
-      <svg id="legend">
-      </svg>
+
       <svg id="zoom-chart">
         <g class="x-axis"></g>
         <g class="y-axis"></g>
       </svg>
       <svg id="waffle-chart" width="600" height="600">
         <g class="legend"></g>
+        <text class="axis-label"></g>
+      </svg>
+      <svg id="bar-chart">
+        <g class="brush-group"></g>
+        <g class="x-axis"></g>
+        <g class="y-axis"></g>
+      </svg>
+      <svg id="legend">
+        <text class="axis-label"></g>
       </svg>
     </section>
   </body>

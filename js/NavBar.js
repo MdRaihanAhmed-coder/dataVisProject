@@ -19,7 +19,6 @@ class NavBar {
 	toggleRadio(name) {
 		let stratum = (name == "ESRB") ? "ESRB_Rating" : name;
 		this.categorizer.activeStratum = stratum;
-		console.log(this.categorizer.activeStratum);
 	  d3.selectAll(".category-radio").property("checked", false);
 		d3.select("#" + name).node().checked = true;
 		this.vc.draw(stratum);
