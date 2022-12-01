@@ -1,6 +1,6 @@
 # Rated **‘V’** for Visualization
-_Project proposal of Visualization for Data Science (CS 6630) - Fall 2022_
-**Website: [VforVisualization](https://mdrahmed.github.io/dataVisProject/#)**
+_Project proposal of Visualization for Data Science (CS 6630) - Fall 2022_ <br/>
+**Website: [V for Visualization](https://mdrahmed.github.io/dataVisProject/#)**
 ## Background and Motivation
 Our team shares an interest in social trends and media, and this shared interest was the driver for our exploration of subject-matter. The nascent medium of video games was a natural choice to explore further, given the underdevelopment of the industry and its documentation relative to other industries like music and film. Our project has since expanded in scope, but our original idea was to document the proportion of video games with a given content rating sold within each year—and, in-turn, the trends associated with that proportion over time.
 Upon review, we discovered that visualizations of industry-wide sales trends for the United States are available directly from the [Motion Picture Association of America](https://www.motionpictures.org/wp-content/uploads/2022/03/MPA-2021-THEME-Report-FINAL.pdf) (MPAA) and [Recording Industry Association of America](https://www.riaa.com/u-s-sales-database/) (RIAA) for the mediums of film and music respectively, but no similar organization exists for the medium of video games, and no similar visualizations are publicly available. We are motivated to fill this niche ourselves, using independently-sourced data, for the sake of completeness and discovery.
