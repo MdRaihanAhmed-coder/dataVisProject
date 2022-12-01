@@ -1,4 +1,3 @@
-// WaffleChart
 class WaffleChart {
   data;
   categorizer;
