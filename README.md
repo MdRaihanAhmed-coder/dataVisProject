@@ -106,31 +106,6 @@ This project schedule aligns with the class schedule layout. Due dates for deliv
  
 ***Project schedule is subjected to possible edits/revisions if needed.
 
-This project schedule aligns with the class schedule layout. Due dates for deliveries as well as delegated tasks are included. 
- - Week 9 
-   - Andrew, Harrison, & Raihan - Project proposal submission (Due: Oct 21st)
- - Week 10 
-   - Andrew - HTML, SVG Layout, CSS
-   - Harrison - Data Processing & Cleaning (web scraping)
-   - Raihan - Bar chart
-   - All - Figure out as a team on how to launch webpage (Docker - AWS)
- - Week 11
-	 - Andrew - Categories SVG
-   - Harrison - Pie Chart
-   - Raihan - Legend (dynamic)
- - Week 12 - Project milestone submission (Due: Nov 11th)
-   - Andrew, Harrison, Raihan  - Work on assigned task(s) for process book/milestone delivery.
-   - All - Compile project milestone submission, conduct mid-project review, testing prototype, troubleshoot if needed.
- - Week 13 - Project review with mentor
-   - All - Meet with TA, discuss and delegate new assignments based on feedback given.
- - Week 14 - Thanksgiving Break (Nov 24th - Now 27th)
-	 - All - Reserve for clean-up/testing
- - Week 15 - Final project submission/presentation (Due: Dec 2nd)
-   - All - Finish up last finishing touches on deliverables (code, process book, recorded screencast) and deliver final design in class.
- 
-***Project schedule is subjected to possible edits/revisions if needed.
-
-
 ## Contact Information
 
 If the instructor or TA needs to contact one or all team members, contact information is provided below: 
