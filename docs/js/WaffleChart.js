@@ -50,7 +50,7 @@ class WaffleChart {
       .attr("width", this.width)
       .attr("height", this.height)
     this.svg.select(".axis-label")
-      .text(`${year} Breakdown`)
+      .text(`${year} Publication Proportions`)
       .attr("text-anchor", "middle")
       .attr("dominant-baseline", "central")
       .attr("x", this.waffleSize / 2)

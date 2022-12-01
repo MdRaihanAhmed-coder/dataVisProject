@@ -59,14 +59,34 @@ class StackedBarChart {
           .scale(this.xs)
           .tickValues(this.xs.domain().filter(d => d % 2 == 0))
       );
+    this.svg.select(".x-axis-label")
+      .text(`Year`)
+      .attr("text-anchor", "middle")
+      .attr("dominant-baseline", "central")
+      .attr("x", this.padding + ((this.width - this.padding) / 2))
+      .attr("y", this.height - 10);
     if (this.proportional) {
       this.svg.select(".y-axis")
-        .attr("transform", "translate(" + this.padding + ", " + this.padding + ")")
+        .attr("transform", "translate(" + this.padding * 2 + ", " + this.padding + ")")
         .call(d3.axisLeft().scale(this.#ysProportional).tickFormat(d3.format("~%")));
+      this.svg.select(".y-axis-label")
+        .text("Proportion of Games Published")
+        .attr("text-anchor", "middle")
+        .attr("dominant-baseline", "central")
+        .attr("x", 30)
+        .attr("y", this.height / 2)
+        .attr("transform",`rotate(-90, 30, ${this.height / 2})`);
     } else {
       this.svg.select(".y-axis")
-        .attr("transform", "translate(" + this.padding + ", " + this.padding + ")")
+        .attr("transform", "translate(" + this.padding * 2 + ", " + this.padding + ")")
         .call(d3.axisLeft().scale(this.#ysDisplay));
+      this.svg.select(".y-axis-label")
+        .text("Total Number of Games Published")
+        .attr("text-anchor", "middle")
+        .attr("dominant-baseline", "central")
+        .attr("x", 20)
+        .attr("y", this.height / 2)
+        .attr("transform",`rotate(-90, 20, ${this.height / 2})`);
     }
   }
 
@@ -135,7 +155,7 @@ class StackedBarChart {
       this.maxBarHeight = d3.max(data, d => d3.sum(d[1].values()));
       this.xs = d3.scaleBand()
         .domain([...data.keys()].sort())
-        .range([this.padding, this.width - this.padding])
+        .range([this.padding * 2, this.width])
         .padding([0.2]);
       this.ys = d3.scaleLinear()
         .domain([0, this.maxBarHeight])
