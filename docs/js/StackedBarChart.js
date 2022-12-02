@@ -181,7 +181,7 @@ class StackedBarChart {
 
   setChild(childBarChart) {
     this.#child = childBarChart;
-    this.brush.extent([[this.padding, this.padding - 5], [this.width - this.padding, this.height - this.padding]])
+    this.brush.extent([[this.padding * 2, this.padding - 5], [this.width, this.height - this.padding]])
     this.svg.select(".brush-group").call(this.brush);
   }
 

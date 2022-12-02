@@ -49,6 +49,7 @@ class WaffleChart {
       .style("outline", "thin solid black")
       .attr("width", this.width)
       .attr("height", this.height)
+      .style("margin", "0px 0px 10px 20px")
     this.svg.select(".axis-label")
       .text(`${year} Publication Proportions`)
       .attr("text-anchor", "middle")

@@ -18,9 +18,12 @@ class NavBar {
 
 	toggleRadio(name) {
 		let stratum = (name == "ESRB") ? "ESRB_Rating" : name;
+		let displayName = (name == "ESRB") ? "ESRB Rating" : name;
 		this.categorizer.activeStratum = stratum;
 	  d3.selectAll(".category-radio").property("checked", false);
 		d3.select("#" + name).node().checked = true;
+		d3.select(".vis-title")
+		  .text(`Video Game Publications arranged by Year and ${displayName}`);
 		this.vc.draw(stratum);
 	}
 
