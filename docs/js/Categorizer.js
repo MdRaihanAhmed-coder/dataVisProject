@@ -50,7 +50,7 @@ class Categorizer {
       },
       "E": {
         active: true,
-        subcategories: ["E"]
+        subcategories: ["E", "KA"]
       },
       "E10": {
         active: true,
