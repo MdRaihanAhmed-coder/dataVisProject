@@ -137,6 +137,7 @@ class StackedBarChart {
         .attr("fill", d => this.cs(d.label))
 
     }
+    //If there is a brush selection, draw this bar chart's child using that selection
     let selection;
     if (selection = this.svg.select(".brush-group")?.node()?.__brush.selection) {
       const [[x0, y0], [x1, y1]] = selection;
@@ -145,13 +146,27 @@ class StackedBarChart {
     } else if (this.#child) {
       this.#child.draw(new Map(), this.data.rolled, this.activeYear, this.cs, true);
     }
+    //If the bar chart is empty, make the chart's annotation visible
+    let annotation;
+    if (annotation = this.svg.select(".annotation")) {
+      if (this.data.subrolled.size == 0) {
+        annotation
+          .attr("text-anchor", "middle")
+          .attr("dominant-baseline", "central")
+          .style("display", "block")
+          .style("font-size", "1.2em")
+          .attr("x", this.padding + ((this.width - this.padding) / 2))
+          .attr("y", this.height / 2);
+      } else {
+        annotation
+          .style("display", "none")
+      }
+    }
   }
 
   setSubrolledData(data) {
     if (data) {
-      /*public member*/
       this.data.subrolled = data;
-      /*private members*/
       this.maxBarHeight = d3.max(data, d => d3.sum(d[1].values()));
       this.xs = d3.scaleBand()
         .domain([...data.keys()].sort())

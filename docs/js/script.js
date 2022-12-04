@@ -23,7 +23,7 @@ d3.csv('./data/vgsales.csv').then(data => {
     //Zoom Chart
     new StackedBarChart(d3.select("#zoom-chart"), 800, 300, handleBarClick),
     //Waffle Chart
-    new WaffleChart(d3.select("#waffle-chart"), 450, 330, 280),
+    new WaffleChart(d3.select("#waffle-chart"), 442, 330, 280),
     //Categorizer
     categorizer
   );

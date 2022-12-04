@@ -21,59 +21,69 @@ class WaffleChart {
       .range([0, this.waffleSize])
       .padding(0.1);
 
-    this.waffles = [];
-    let obj = subrolledData.entries()
-    let keys = Array.from(d3.intersection(cs.domain(), subrolledData.keys()));
-    let maxValue = d3.max(subrolledData.values())
-    let total = rolledData.get(year);
-    let index = 0;
-    let waffle = [];
-    let ratio = 0;
-    for (let y = 9; y >= 0; y--) {
-      for (let x = 0; x < 10; x++) {
-        if (ratio < 1) {
-          ratio = Math.round(subrolledData.get(keys[index]) / total * 100);
-          if (subrolledData.get(keys[index]) === maxValue) ratio += 1;
-          index += 1;
-        }
-        let key = keys[index - 1];
-        key = key ? key : keys[index - 2];
-        waffle.push({key, x, y, index});
-        ratio -= 1;
-      }
-    }
-    this.waffles.push(waffle);
-    this.svg
-      .style("cursor", "default")
-      .style("background-color", "white")
-      .style("outline", "thin solid black")
-      .attr("width", this.width)
-      .attr("height", this.height)
-      .style("margin", "0px 0px 10px 20px")
-    this.svg.select(".axis-label")
-      .text(`${year} Publication Proportions`)
-      .attr("text-anchor", "middle")
-      .attr("dominant-baseline", "central")
-      .attr("x", this.waffleSize / 2)
-      .attr("y", 25);
-    const g = this.svg.selectAll(".waffle")
-      .data(this.waffles)
-      .join("g")
-      .attr("class", "waffle")
-      .attr("transform", `translate(0, 50)`);
-    const cellSize = scale.bandwidth();
-    const half = cellSize / 2;
-    const cells = g
-      .selectAll("whole")
-      .data(d => d)
-      .join("rect")
-      .attr("fill", d => cs(d.key));
+    if (subrolledData) {
+      this.svg.select(".waffle").style("display", "block");
+      this.svg.select(".legend").style("display", "block");
 
-    cells.attr("x", (d,i) => scale(d.x))
-      .attr("y", d =>  scale(d.y))
-      .attr("rx", 3).attr("ry", 3)
-      .attr("width", cellSize).attr("height", cellSize)
-    this.drawLegend(keys, cells, cs);
+      this.waffles = [];
+      let obj = subrolledData.entries()
+      let keys = Array.from(d3.intersection(cs.domain(), subrolledData.keys()));
+      let maxValue = d3.max(subrolledData.values())
+      let total = rolledData.get(year);
+      let index = 0;
+      let waffle = [];
+      let ratio = 0;
+      for (let y = 9; y >= 0; y--) {
+        for (let x = 0; x < 10; x++) {
+          if (ratio < 1) {
+            ratio = Math.round(subrolledData.get(keys[index]) / total * 100);
+            if (subrolledData.get(keys[index]) === maxValue) ratio += 1;
+            index += 1;
+          }
+          let key = keys[index - 1];
+          key = key ? key : keys[index - 2];
+          waffle.push({key, x, y, index});
+          ratio -= 1;
+        }
+      }
+      this.waffles.push(waffle);
+      this.svg
+        .style("cursor", "default")
+        .style("background-color", "white")
+        .style("outline", "thin solid black")
+        .attr("width", this.width)
+        .attr("height", this.height)
+        .style("margin", "0px 0px 10px 20px")
+      this.svg.select(".axis-label")
+        .text(`${year} Publication Proportions`)
+        .attr("text-anchor", "middle")
+        .attr("dominant-baseline", "central")
+        .attr("x", this.waffleSize / 2)
+        .attr("y", 25);
+      const g = this.svg.selectAll(".waffle")
+        .data(this.waffles)
+        .join("g")
+        .attr("class", "waffle")
+        .attr("transform", `translate(0, 50)`);
+      const cellSize = scale.bandwidth();
+      const half = cellSize / 2;
+      const cells = g
+        .selectAll("whole")
+        .data(d => d)
+        .join("rect")
+        .attr("fill", d => cs(d.key));
+
+      cells.attr("x", (d,i) => scale(d.x))
+        .attr("y", d =>  scale(d.y))
+        .attr("rx", 3).attr("ry", 3)
+        .attr("width", cellSize).attr("height", cellSize)
+
+      this.drawLegend(keys, cells, cs);
+    } else {
+      this.svg.select(".waffle").style("display", "none");
+      this.svg.select(".legend").style("display", "none");
+    }
+
   }
 
   drawLegend(keys, cells, cs) {

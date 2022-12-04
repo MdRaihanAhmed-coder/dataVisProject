@@ -63,6 +63,10 @@ class Categorizer {
       "M": {
         active: true,
         subcategories: ["M"]
+      },
+      "AO": {
+        active: true,
+        subcategories: ["AO"]
       }
     };
     this.Genre = {

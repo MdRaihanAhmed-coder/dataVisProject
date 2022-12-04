@@ -32,20 +32,29 @@
   text-align: center;
   line-height: 50px;
 }
-.sidebar .logo-details .logo_name{
+.sidebar .logo_name {
   font-size: 22px;
   color: #fff;
   font-weight: 600;
   transition: 0.2s ease;
   transition-delay: 0.1s;
 }
-.sidebar.close .logo-details .logo_name{
+.sidebar p {
+  font-size: 22px;
+  color: #fff;
+  font-weight: 600;
+  transition: 0.2s ease;
+  transition-delay: 0.1s;
+  text-align: center;
+  width: 250px;
+  margin-top: 20px;
+}
+.sidebar.close .logo_name, .sidebar.close p {
   transition-delay: 0s;
   opacity: 0;
   pointer-events: none;
 }
 .sidebar .nav-links{
-  height: 100%;
   overflow: auto;
 }
 .sidebar.close .nav-links{
