@@ -88,7 +88,7 @@ class Categorizer {
       },
       "Role-Playing": {
         active: true,
-        subcategories: ["Role-Playing", "MMO"]
+        subcategories: ["Role-Playing", "MMO", "Simulation"]
       },
       "Puzzle": {
         active: true,
@@ -109,10 +109,6 @@ class Categorizer {
       "Strategy": {
         active: true,
         subcategories: ["Strategy"]
-      },
-      "Simulation": {
-        active: true,
-        subcategories: ["Simulation"]
       }
     };
   }

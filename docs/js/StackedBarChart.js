@@ -102,7 +102,8 @@ class StackedBarChart {
     this.svg
       .attr("height", this.height)
       .attr("width", this.width)
-      .style("margin", this.margin);
+      .style("margin", this.margin)
+      .style("background-color", "white");
     //Draw axes
     this.#drawAxes();
     //Create one group per year

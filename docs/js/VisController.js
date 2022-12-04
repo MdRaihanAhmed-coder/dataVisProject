@@ -28,7 +28,7 @@ class VisController {
     let filteredData = this.filter(this.data.raw);
     this.data.active.rolled = d3.rollup(filteredData, g => g.length, d => parseInt(d.Year));
     this.data.active.subrolled = d3.rollup(filteredData, g => g.length, d => parseInt(d.Year), d => this.categorizer.generalize(stratum, d[stratum]))
-    this.cs = d3.scaleOrdinal().domain(Object.keys(this.categorizer[stratum])).range(d3.schemeSet3);
+    this.cs = d3.scaleOrdinal().domain(Object.keys(this.categorizer[stratum])).range(d3.schemeCategory10);
     this.legend.draw(this.cs, stratum == "ESRB_Rating" ? "ESRB Rating" : stratum);
     this.barChart.draw(this.data.active.subrolled, this.data.active.rolled, this.activeYear, this.cs, false);
     this.waffleChart.draw(this.data.active.subrolled, this.data.active.rolled, this.activeYear, stratum, this.cs);
