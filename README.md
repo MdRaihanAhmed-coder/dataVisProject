@@ -15,6 +15,7 @@ The largest data-set for video game sales records that is both publicly-accessib
 
 ## Project Structure
 This repository contains all the information about the project including process book, feedback etc. The docs is the working directory. We have the codes, data and figures present in the docs folder. The project file structure looks like this:
+```
     Process Book.pdf
     README.md
     demo.zip
@@ -31,7 +32,7 @@ VisController.js
 WaffleChart.js
 11 hours ago
 script.js
-
+```
 
 ## Contact Information
 
