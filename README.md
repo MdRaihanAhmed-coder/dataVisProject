@@ -22,16 +22,29 @@ This repository contains all the information about the project including process
     feedback_exercise.pdf
     docs/
         index.html
-    docs/js/
+    /docs/css
+        style.css
+    /docs/data
+        vgsales.csv
+    /docs/figures
+        finalvis.png
+        sketch1.jpeg
+        sketch2.jpeg
+        vis1.png
+        vis2.png
+        vis3.png
+    /docs/images
+        YouTube.svg
+        favicon.ico
+        v.png
+    /docs/js/
         Categorizer.js
-Legend.js
-website
-NavBar.js
-StackedBarChart.js
-VisController.js
-WaffleChart.js
-11 hours ago
-script.js
+        Legend.js
+        NavBar.js
+        StackedBarChart.js
+        VisController.js
+        WaffleChart.js
+        script.js
 ```
 
 ## Contact Information
