@@ -8,7 +8,7 @@ class Categorizer {
     this.Platform = {
       "Other": {
         active: true,
-        subcategories: ["3DO", "Aco", "Arc", "BBCM", "BRW", "CDi", "FMT", "GIZ", "NG", "Ouya", "PCFX", "PCE", "TG16", "WS", "Mobi"]
+        subcategories: ["3DO", "Aco", "Arc", "BBCM", "BRW", "CDi", "FMT", "GIZ", "NG", "Ouya", "PCFX", "PCE", "TG16", "WS", "Mobi", "OR"]
       },
       "Atari": {
         active: true,
