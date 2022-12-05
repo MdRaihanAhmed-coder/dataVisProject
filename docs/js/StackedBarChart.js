@@ -169,8 +169,9 @@ class StackedBarChart {
     if (data) {
       this.data.subrolled = data;
       this.maxBarHeight = d3.max(data, d => d3.sum(d[1].values()));
+      let keys = Array.from(data.keys());
       this.xs = d3.scaleBand()
-        .domain([...data.keys()].sort())
+        .domain(d3.range(d3.min(keys), d3.max(keys) + 1))
         .range([this.padding * 2, this.width])
         .padding([0.2]);
       this.ys = d3.scaleLinear()
