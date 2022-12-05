@@ -1,6 +1,6 @@
 # Rated **‘V’** for Visualization
 _Project proposal of Visualization for Data Science (CS 6630) - Fall 2022_ <br/>
-**Website: [V for Visualization](https://mdrahmed.github.io/dataVisProject/#)**
+**Website: [V for Visualization](https://mdrahmed.github.io/dataVisProject/#)** <br/>
 **Screencast: [V for Visualization](https://www.youtube.com/watch?v=xxMWrbgIQ4Y)**
 ## Background and Motivation
 Our team shares an interest in social trends and media, and this shared interest was the driver for our exploration of subject-matter. The nascent medium of video games was a natural choice to explore further, given the underdevelopment of the industry and its documentation relative to other industries like music and film. Our project has since expanded in scope, but our original idea was to document the proportion of video games with a given content rating sold within each year—and, in-turn, the trends associated with that proportion over time.
