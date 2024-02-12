@@ -1,4 +1,4 @@
-# Rated **‘V’** for Visualization
+# Rated **‘V’** for Visualization - Vis Project
 _Project proposal of Visualization for Data Science (CS 6630) - Fall 2022_ <br/>
 **Website: [V for Visualization](https://mdrahmed.github.io/dataVisProject/#)** <br/>
 **Screencast: [V for Visualization](https://www.youtube.com/watch?v=xxMWrbgIQ4Y)**
