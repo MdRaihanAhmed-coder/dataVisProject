@@ -1,0 +1,95 @@
+  <!DOCTYPE html>
+  <html lang="en" dir="ltr">
+  <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>V for Visualization</title>
+    <link rel="stylesheet" href="css/style.css">
+    <link href='https://unpkg.com/boxicons@2.0.7/css/boxicons.min.css' rel='stylesheet'>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link rel="icon" type="image/x-icon" href="images/favicon.ico">
+    <script src="https://d3js.org/d3.v7.min.js"></script>
+    <script src="js/Categorizer.js" defer></script>
+    <script src="js/Legend.js" defer></script>
+    <script src="js/StackedBarChart.js" defer></script>
+    <script src="js/VisController.js" defer></script>
+    <script src="js/NavBar.js" defer></script>
+    <script src="js/WaffleChart.js" defer></script>
+    <script src="js/script.js" defer></script>
+  </head>
+  <body>
+    <div class="sidebar close">
+
+      <div class="logo-details">
+        <i><img src="images/v.png" width="50" height="50" class="center"></i>
+        <span class="logo_name">VISUALIZATION</span>
+      </div>
+      <ul class="nav-links">
+        <li>
+          <div class="icon-link">
+            <input type="radio" id="Genre" class="category-radio">
+            <a href="#">
+              <i class='bx bx-game' ></i>
+              <span class="link_name">Genre</span>
+            </a>
+            <i class='bx bxs-chevron-down arrow' ></i>
+          </div>
+          <ul id="genre-list" class="sub-menu"></ul>
+        </li>
+        <li>
+          <div class="icon-link">
+            <input type="radio" id="Platform" class="category-radio">
+            <a href="#">
+              <i class='bx bx-joystick' ></i>
+              <span class="link_name">Platform</span>
+            </a>
+            <i class='bx bxs-chevron-down arrow' ></i>
+          </div>
+          <ul id="platform-list" class="sub-menu"></ul>
+        </li>
+        <li>
+          <div class="icon-link">
+            <input type="radio" id="ESRB" class="category-radio">
+            <a href="#">
+              <i class='bx bx-check-square' ></i>
+              <span class="link_name">ESRB</span>
+            </a>
+            <i class='bx bxs-chevron-down arrow' ></i>
+          </div>
+          <ul id="esrb-list" class="sub-menu"></ul>
+        </li>
+      </ul>
+      <p>Click the radio buttons to control how the data is grouped. Click the toggle switches to control how the data is filtered.</p>
+      <p><a href="./data/vgsales.csv" target="_blank">Raw Data</a></p>
+      <p><a href="https://www.vgchartz.com/gamedb/" target="_blank">Data Source</a></p>
+    </div>
+    <section class="home-section">
+      <div class="home-content">
+        <i class='bx bx-menu' ></i>
+        <span class="vis-title">Video Game Publications arranged by Year and Platform</span>
+        <a href="https://youtu.be/xxMWrbgIQ4Y" target="_blank"><img src="images/YouTube.svg" style="width: 80px; height: 50px; margin: 20px;"></img></a>
+      </div>
+      <svg id="zoom-chart">
+        <g class="x-axis"></g>
+        <text class="x-axis-label"></text>
+        <g class="y-axis"></g>
+        <text class="y-axis-label"></text>
+        <text class="annotation">Brush the bar chart below to make a selection.</text>
+      </svg>
+      <svg id="waffle-chart" width="600" height="600">
+        <g class="legend"></g>
+        <text class="axis-label"></g>
+      </svg>
+      <svg id="bar-chart">
+        <g class="brush-group"></g>
+        <g class="x-axis"></g>
+        <text class="x-axis-label"></text>
+        <g class="y-axis"></g>
+        <text class="y-axis-label"></text>
+      </svg>
+      <svg id="legend">
+        <text class="axis-label"></g>
+      </svg>
+    </section>
+  </body>
+</html>
